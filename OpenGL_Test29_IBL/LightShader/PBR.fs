@@ -7,9 +7,10 @@ in VS_OUT {
     vec2 TexCoords;
 } fs_in;
 
-uniform vec3 albedo;        //反照率
-uniform float metallic;     //金属度
-uniform float roughness;    //粗糙度
+uniform sampler2D albedoMap;        //反照率
+uniform sampler2D normalMap;        //法线贴图
+uniform sampler2D metallicMap;      //金属度
+uniform sampler2D roughnessMap;     //粗糙度
 uniform float ao;           //环境光隐蔽
 
 uniform vec3 lightPositions[4];
@@ -19,6 +20,7 @@ uniform vec3 camPos;
 
 const float PI = 3.14159265359;
 
+vec3 getNormalFromMap();
 float DistributionGGX(vec3 N, vec3 H, float roughness);
 float GeometrySchlickGGX(float NdotV, float roughness);
 float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness);
@@ -26,7 +28,11 @@ vec3 fresnelSchlick(float cosTheta, vec3 F0);
 
 void main()
 {
-    vec3 N = normalize(fs_in.Normal);
+    vec3 albedo = pow(vec3(texture(albedoMap, fs_in.TexCoords).xyz), vec3(2.2));
+    float metallic = texture(metallicMap, fs_in.TexCoords).r;
+    float roughness = texture(roughnessMap, fs_in.TexCoords).r;
+    
+    vec3 N = getNormalFromMap();
     vec3 V = normalize(camPos - fs_in.FragPos);
     
     // calculate reflectance at normal incidence; if dia-electric (like plastic) use F0
@@ -84,6 +90,23 @@ void main()
     color = pow(color, vec3(1.0/2.2));
 
     FragColor = vec4(color, 1.0);
+}
+
+vec3 getNormalFromMap()
+{
+    vec3 tangentNormal = texture(normalMap, fs_in.TexCoords).xyz * 2.0 - 1.0;
+
+    vec3 Q1  = dFdx(fs_in.FragPos);
+    vec3 Q2  = dFdy(fs_in.FragPos);
+    vec2 st1 = dFdx(fs_in.TexCoords);
+    vec2 st2 = dFdy(fs_in.TexCoords);
+
+    vec3 N  = normalize(fs_in.Normal);
+    vec3 T  = normalize(Q1*st2.t - Q2*st1.t);
+    vec3 B  = -normalize(cross(N, T));
+    mat3 TBN = mat3(T, B, N);
+
+    return normalize(TBN * tangentNormal);
 }
 
 // ----------------------------------------------------------------------------
