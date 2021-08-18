@@ -131,6 +131,7 @@ int main()
     pbrShader.setInt("normalMap", 1);
     pbrShader.setInt("metallicMap", 2);
     pbrShader.setInt("roughnessMap", 3);
+    pbrShader.setInt("irradianceMap", 4);
     pbrShader.setFloat("ao", 1.0f);
 
     backgroundShader.use();
@@ -272,7 +273,8 @@ int main()
         glBindTexture(GL_TEXTURE_2D, metallicTexture);
         glActiveTexture(GL_TEXTURE3);
         glBindTexture(GL_TEXTURE_2D, roughnessTexture);
-//        glActiveTexture(GL_TEXTURE4);
+        glActiveTexture(GL_TEXTURE4);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
 //        glBindTexture(GL_TEXTURE_2D, aoTexture);
         pbrShader.setVec3("camPos", camera.Position);
         pbrShader.setMat4("projection", projection);
@@ -317,11 +319,8 @@ int main()
         backgroundShader.use();
         backgroundShader.setMat4("projection", projection);
         backgroundShader.setMat4("view", view);
-        // bind pre-computed IBL data
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
-//        glActiveTexture(GL_TEXTURE0);
-//        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
         renderCube();
 //        equirectangularToCubemapShader.use();
 //        equirectangularToCubemapShader.setMat4("projection", projection);

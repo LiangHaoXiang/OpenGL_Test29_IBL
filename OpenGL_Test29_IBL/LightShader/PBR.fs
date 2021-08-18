@@ -11,6 +11,7 @@ uniform sampler2D albedoMap;        //反照率
 uniform sampler2D normalMap;        //法线贴图
 uniform sampler2D metallicMap;      //金属度
 uniform sampler2D roughnessMap;     //粗糙度
+uniform samplerCube irradianceMap;    //辐照度贴图
 uniform float ao;           //环境光隐蔽
 
 uniform vec3 lightPositions[4];
@@ -78,10 +79,15 @@ void main()
         Lo += (kD * albedo / PI + specular) * radiance * NdotL;  // note that we already multiplied the BRDF by the Fresnel (kS) so we won't multiply by kS again
     }
     
-    // ambient lighting (note that the next IBL tutorial will replace
-    // this ambient lighting with environment lighting).
-    vec3 ambient = vec3(0.03) * albedo * ao;
-
+    // ambient lighting (we now use IBL as the ambient term)
+    vec3 kS = fresnelSchlick(max(dot(fs_in.Normal, V), 0.0), F0);
+    vec3 kD = 1.0 - kS;
+    kD *= 1.0 - metallic;
+    vec3 irradiance = texture(irradianceMap, fs_in.Normal).rgb;
+    vec3 diffuse = irradiance * albedo;
+    vec3 ambient = (kD * diffuse) * ao;
+//    vec3 ambient = vec3(0.03) * albedo * ao;
+    
     vec3 color = ambient + Lo;
 
     // HDR tonemapping
