@@ -52,6 +52,10 @@
 		ABFB89D926CCDF4400842864 /* Background.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Background.vs; sourceTree = "<group>"; };
 		ABFB89DA26CD024400842864 /* Irradiance_Convolution.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Irradiance_Convolution.fs; sourceTree = "<group>"; };
 		ABFB89DB26CD024400842864 /* Irradiance_Convolution.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Irradiance_Convolution.vs; sourceTree = "<group>"; };
+		ABFB89DC26CE00A000842864 /* Prefilter.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Prefilter.fs; sourceTree = "<group>"; };
+		ABFB89DD26CE00A000842864 /* BRDF.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = BRDF.fs; sourceTree = "<group>"; };
+		ABFB89DE26CE00A000842864 /* BRDF.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = BRDF.vs; sourceTree = "<group>"; };
+		ABFB89DF26CE00A000842864 /* Prefilter.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Prefilter.vs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,10 @@
 				ABFB89D626CCA96400842864 /* CubeMap.fs */,
 				ABFB89DB26CD024400842864 /* Irradiance_Convolution.vs */,
 				ABFB89DA26CD024400842864 /* Irradiance_Convolution.fs */,
+				ABFB89DF26CE00A000842864 /* Prefilter.vs */,
+				ABFB89DC26CE00A000842864 /* Prefilter.fs */,
+				ABFB89DE26CE00A000842864 /* BRDF.vs */,
+				ABFB89DD26CE00A000842864 /* BRDF.fs */,
 				ABFB89D926CCDF4400842864 /* Background.vs */,
 				ABFB89D826CCDF4400842864 /* Background.fs */,
 			);
