@@ -108,14 +108,53 @@ int main()
 
     unsigned int hdrTexture = loadHDRTexture("/Users/haoxiangliang/Desktop/未命名文件夹/sIBL_Collection/backlot/Refmap.hdr");
     
-    unsigned int albedoTexture =
+    //铝
+    unsigned int aluminumAlbedoTexture =
     loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/Aluminum-Scuffed_Unreal-Engine/Aluminum-Scuffed_basecolor.png");
-    unsigned int normalTexture =
+    unsigned int aluminumNormalTexture =
     loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/Aluminum-Scuffed_Unreal-Engine/Aluminum-Scuffed_normal.png");
-    unsigned int metallicTexture =
+    unsigned int aluminumMetallicTexture =
     loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/Aluminum-Scuffed_Unreal-Engine/Aluminum-Scuffed_metallic.png");
-    unsigned int roughnessTexture =
+    unsigned int aluminumRoughnessTexture =
     loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/Aluminum-Scuffed_Unreal-Engine/Aluminum-Scuffed_roughness.png");
+    //铁
+    unsigned int ironAlbedoTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/Iron-Scuffed_Unreal-Engine/Iron-Scuffed_basecolor.png");
+    unsigned int ironNormalTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/Iron-Scuffed_Unreal-Engine/Iron-Scuffed_normal.png");
+    unsigned int ironMetallicTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/Iron-Scuffed_Unreal-Engine/Iron-Scuffed_metallic.png");
+    unsigned int ironRoughnessTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/Iron-Scuffed_Unreal-Engine/Iron-Scuffed_roughness.png");
+    //金属1
+    unsigned int metal1AlbedoTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/modern-metal-wall1-bl/modern-metal-wall_albedo.png");
+    unsigned int metal1NormalTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/modern-metal-wall1-bl/modern-metal-wall_normal-ogl.png");
+    unsigned int metal1MetallicTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/modern-metal-wall1-bl/modern-metal-wall_metallic.png");
+    unsigned int metal1RoughnessTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/modern-metal-wall1-bl/modern-metal-wall_roughness.png");
+    //金属2
+    unsigned int metal2AlbedoTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/dull-copper-bl/dull-copper_albedo.png");
+    unsigned int metal2NormalTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/dull-copper-bl/dull-copper_normal-ogl.png");
+    unsigned int metal2MetallicTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/dull-copper-bl/dull-copper_metallic.png");
+    unsigned int metal2RoughnessTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/dull-copper-bl/dull-copper_roughness.png");
+    //木质
+    unsigned int woodAlbedoTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/bamboo-wood-semigloss-bl/bamboo-wood-semigloss-albedo.png");
+    unsigned int woodNormalTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/bamboo-wood-semigloss-bl/bamboo-wood-semigloss-normal.png");
+    unsigned int woodMetallicTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/bamboo-wood-semigloss-bl/bamboo-wood-semigloss-metal.png");
+    unsigned int woodRoughnessTexture =
+    loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/bamboo-wood-semigloss-bl/bamboo-wood-semigloss-roughness.png");
+    
+    
     // lighting info
     // -------------
     vec3 lightPositions[] = {
@@ -134,13 +173,13 @@ int main()
     // shader configuration
     // --------------------
     pbrShader.use();
-    pbrShader.setInt("albedoMap", 0);
-    pbrShader.setInt("normalMap", 1);
-    pbrShader.setInt("metallicMap", 2);
-    pbrShader.setInt("roughnessMap", 3);
-    pbrShader.setInt("irradianceMap", 4);
-    pbrShader.setInt("prefilterMap", 5);
-    pbrShader.setInt("brdfLUT", 6);
+    pbrShader.setInt("irradianceMap", 0);
+    pbrShader.setInt("prefilterMap", 1);
+    pbrShader.setInt("brdfLUT", 2);
+    pbrShader.setInt("albedoMap", 3);
+    pbrShader.setInt("normalMap", 4);
+    pbrShader.setInt("metallicMap", 5);
+    pbrShader.setInt("roughnessMap", 6);
     pbrShader.setFloat("ao", 1.0f);
 
     backgroundShader.use();
@@ -352,18 +391,10 @@ int main()
         mat4 model = mat4(1.0f);
         pbrShader.use();
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, albedoTexture);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, normalTexture);
-        glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, metallicTexture);
-        glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, roughnessTexture);
-        glActiveTexture(GL_TEXTURE4);
         glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
-        glActiveTexture(GL_TEXTURE5);
+        glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
-        glActiveTexture(GL_TEXTURE6);
+        glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
         
         pbrShader.setVec3("camPos", camera.Position);
@@ -376,13 +407,63 @@ int main()
             {
                 // we clamp the roughness to 0.05 - 1.0 as perfectly smooth surfaces (roughness of 0.0) tend to look a bit off
                 // on direct lighting.
-
+                if (col % 5 == 0)
+                {
+                    glActiveTexture(GL_TEXTURE3);
+                    glBindTexture(GL_TEXTURE_2D, aluminumAlbedoTexture);
+                    glActiveTexture(GL_TEXTURE4);
+                    glBindTexture(GL_TEXTURE_2D, aluminumNormalTexture);
+                    glActiveTexture(GL_TEXTURE5);
+                    glBindTexture(GL_TEXTURE_2D, aluminumMetallicTexture);
+                    glActiveTexture(GL_TEXTURE6);
+                    glBindTexture(GL_TEXTURE_2D, aluminumRoughnessTexture);
+                }
+                else if (col % 5 == 1)
+                {
+                    glActiveTexture(GL_TEXTURE3);
+                    glBindTexture(GL_TEXTURE_2D, ironAlbedoTexture);
+                    glActiveTexture(GL_TEXTURE4);
+                    glBindTexture(GL_TEXTURE_2D, ironNormalTexture);
+                    glActiveTexture(GL_TEXTURE5);
+                    glBindTexture(GL_TEXTURE_2D, ironMetallicTexture);
+                    glActiveTexture(GL_TEXTURE6);
+                    glBindTexture(GL_TEXTURE_2D, ironRoughnessTexture);
+                }
+                else if (col % 5 == 2)
+                {
+                    glActiveTexture(GL_TEXTURE3);
+                    glBindTexture(GL_TEXTURE_2D, metal1AlbedoTexture);
+                    glActiveTexture(GL_TEXTURE4);
+                    glBindTexture(GL_TEXTURE_2D, metal1NormalTexture);
+                    glActiveTexture(GL_TEXTURE5);
+                    glBindTexture(GL_TEXTURE_2D, metal1MetallicTexture);
+                    glActiveTexture(GL_TEXTURE6);
+                    glBindTexture(GL_TEXTURE_2D, metal1RoughnessTexture);
+                }
+                else if (col % 5 == 3)
+                {
+                    glActiveTexture(GL_TEXTURE3);
+                    glBindTexture(GL_TEXTURE_2D, metal2AlbedoTexture);
+                    glActiveTexture(GL_TEXTURE4);
+                    glBindTexture(GL_TEXTURE_2D, metal2NormalTexture);
+                    glActiveTexture(GL_TEXTURE5);
+                    glBindTexture(GL_TEXTURE_2D, metal2MetallicTexture);
+                    glActiveTexture(GL_TEXTURE6);
+                    glBindTexture(GL_TEXTURE_2D, metal2RoughnessTexture);
+                }
+                else if (col % 5 == 4)
+                {
+                    glActiveTexture(GL_TEXTURE3);
+                    glBindTexture(GL_TEXTURE_2D, woodAlbedoTexture);
+                    glActiveTexture(GL_TEXTURE4);
+                    glBindTexture(GL_TEXTURE_2D, woodNormalTexture);
+                    glActiveTexture(GL_TEXTURE5);
+                    glBindTexture(GL_TEXTURE_2D, woodMetallicTexture);
+                    glActiveTexture(GL_TEXTURE6);
+                    glBindTexture(GL_TEXTURE_2D, woodRoughnessTexture);
+                }
                 model = mat4(1.0f);
-                model = translate(model, vec3(
-                    (col - (nrColumns / 2)) * spacing,
-                    (row - (nrRows / 2)) * spacing,
-                    0.0f
-                ));
+                model = translate(model, vec3((col - (nrColumns / 2)) * spacing, (row - (nrRows / 2)) * spacing, 0.0f));
                 pbrShader.setMat4("model", model);
                 renderSphere();
             }
