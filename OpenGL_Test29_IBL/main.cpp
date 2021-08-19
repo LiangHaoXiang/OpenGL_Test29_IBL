@@ -11,6 +11,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.hpp"
 #include "Model.hpp"
+#include "ErrorDebug.h"
 
 using namespace std;
 using namespace glm;

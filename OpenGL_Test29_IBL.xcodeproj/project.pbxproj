@@ -56,6 +56,7 @@
 		ABFB89DD26CE00A000842864 /* BRDF.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = BRDF.fs; sourceTree = "<group>"; };
 		ABFB89DE26CE00A000842864 /* BRDF.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = BRDF.vs; sourceTree = "<group>"; };
 		ABFB89DF26CE00A000842864 /* Prefilter.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Prefilter.vs; sourceTree = "<group>"; };
+		ABFB89E226CE30DF00842864 /* ErrorDebug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ErrorDebug.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +104,7 @@
 				ABFB89CB26CBB7FC00842864 /* stb_image.h */,
 				ABFB89C626CBB7C200842864 /* glad.c */,
 				ABFB89B826CBB74D00842864 /* main.cpp */,
+				ABFB89E226CE30DF00842864 /* ErrorDebug.h */,
 			);
 			path = OpenGL_Test29_IBL;
 			sourceTree = "<group>";
